@@ -1,2 +1,2 @@
-# python-feedback
+# Feedback Manager
 Python module used to assist in displaying feedback and capturing user input in scripts.
