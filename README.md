@@ -5,8 +5,14 @@ A simple Python module used to display different categories of messages on the c
 ### Basic Use
 ```python
 # Import and load the handler class
-import feedback
-fb = feedback.Feedback()
+from feedback import Feedback
+feedback = Feedback()
+
+# Create an instance using a timestamp
+feedback_ts  = Feedback(use_timestamp=True)
+
+# Create an instance using a custom timestamp
+feedback_tsc = Feedback(use_timestamp=True, timestamp_format='%Y-%m-%d %H:%M:%S')
 
 # Displaying single line messages
 fb.set('Set the message, then call the render method').info()
@@ -14,45 +20,18 @@ fb.set('Something good just happended, :-)').success()
 fb.set('Something bad just happended, :-(').error()
 fb.set('Better watch out, something looks fishy').warn()
 
-# Capturing user input. Only one response is stored at a time, and must
-# be retrieved after calling the input method, otherwise it will be
-# overwritten at the next input method call.
-fb.set('Ask the user for some data: ').input()
-rsp_one = fb.get_response()
-fb.set('Ask the user a "y" or "n" question? (y/n): ').input(yes_no=True)
-rsp_two = fb.get_response()
-fb.set('Ask the user for a password and confirm: ').input(secure=True, confirm=True)
-rsp_three = fb.get_response()
+# Capturing user input.
+fb.set('Ask the user for some data: ').input('key_one')
+fb.set('Ask the user a "y" or "n" question? (y/n): ').input('key_two', yes_no=True)
+fb.set('Ask the user for a password and confirm: ').input('key_three', secure=True, confirm=True)
 
 # Displaying an indented block of text. Pass an array as an argument
 # with one line per entry.
 fb.set([
     'This is a block of indented text, and here is some stuff to look at:',
-    'Response 1: {}'.format(rsp_one),
-    'Response 2: {}'.format(rsp_two),
-    'Response 3: {}'.format(rsp_three),
+    'Response 1: {}'.format(feedback.get_response('key_one')),
+    'Response 2: {}'.format(feedback.get_response('key_one')),
+    'Response 3: {}'.format(feedback.get_response('key_one')),
     'And that\'s the end of this block'
 ]).block('ABOUT')
-```
-
-This is what the output looks like from the above code snippet:
-```sh
-[   INFO  ]: Set the message, then call the render method
-[ SUCCESS ]: Something good just happended, :-)
-[  ERROR  ]: Something bad just happended, :-(
-[ WARNING ]: Better watch out, something looks fishy
-[  INPUT  ]: Ask the user for some data: somedata
-[  INPUT  ]: Ask the user a "y" or "n" question? (y/n): h
-[  ERROR  ]: Response must be "y" or "n"...
-[  INPUT  ]: Ask the user a "y" or "n" question? (y/n): n
-[  INPUT  ]: Ask the user for a password and confirm: 
-[ CONFIRM ]: Please re-enter the value: 
-[  ERROR  ]: Values do not match, please try again...
-[  INPUT  ]: Ask the user for a password and confirm: 
-[ CONFIRM ]: Please re-enter the value: 
-[  ABOUT  ]: This is a block of indented text, and here is some stuff to look at:
-             Response 1: somedata
-             Response 2: False
-             Response 3: secret
-             And that's the end of this block
 ```
