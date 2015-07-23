@@ -2,6 +2,11 @@
 
 A simple Python module used to display different categories of messages on the command line, as well as capturing user input. This was originally an internal module for a project of mine, but I ended up using it elsewhere, so I am splitting it off into its own project. Mainly used in Python scripts that should be run on the terminal.
 
+### Installation
+```sh
+pip install feedback
+```
+
 ### Basic Use
 ```python
 # Import and load the handler class
