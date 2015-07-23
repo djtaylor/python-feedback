@@ -17,4 +17,14 @@ setup(
     url='http://github.com/djtaylor/python-feedback',
     license='GPLv3',
     packages=find_packages(),
+    classifiers=[
+        'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',
+        'Natural Language :: English',
+        'Operating System :: POSIX',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: User Interfaces',
+        'Topic :: Terminals',
+    ]
 )
