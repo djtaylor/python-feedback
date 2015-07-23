@@ -6,17 +6,17 @@ from common import _Common
 from render import _Render
 
 class Feedback(_Common):
-    def __init__(self):
+    def __init__(self, **kwargs):
         super(Feedback, self).__init__()
         
         # Render manager / handler
-        self.render   = _Render()
+        self.render   = _Render(**kwargs)
     
-    def get_response(self):
+    def get_response(self, key, default=None):
         """
         Return then clear the response variable.
         """
-        return self.render.get_response()
+        return self.render.get_response(key, default)
         
     def success(self): 
         """
@@ -42,11 +42,11 @@ class Feedback(_Common):
         """
         self.render.show(label, newline=False)
 
-    def input(self, secure=False, confirm=False, yes_no=False):
+    def input(self, key, secure=False, confirm=False, yes_no=False):
         """
         Display an input prompt on the screen.
         """
-        self.render.show('INPUT', input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
+        self.render.show('INPUT', input_key=key, input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
 
     def info(self): 
         """
@@ -65,13 +65,11 @@ class Feedback(_Common):
         if isinstance(msg, str):
             _msg = msg
         elif isinstance(msg, list):
-            indent   = self.width + 4
-            count    = 0
-            _msg = ''
+            indent   = ' ' * 3
+            _msg = '\n\n'
             for line in msg:
-                indent_str = '' if count == 0 else ' ' * indent
-                _msg += '{}{}\n'.format(indent_str, line)
-                count += 1
+                _msg += '{}{}\n'.format(indent, line)
+            _msg += '\n'
         else:
             return self
         

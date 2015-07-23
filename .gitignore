@@ -5,6 +5,7 @@ test.py[cod]
 build
 dist
 feedback.egg-info
+build.sh
 
 # Eclipse
 .project
