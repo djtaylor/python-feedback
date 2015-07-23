@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 # Module version / long description
 version = feedback.__version__
-long_desc = open('README.md').read()
+long_desc = open('DESCRIPTION.rst').read()
 
 # Run the setup
 setup(
@@ -17,6 +17,7 @@ setup(
     url='http://github.com/djtaylor/python-feedback',
     license='GPLv3',
     packages=find_packages(),
+    keywords='feedback terminal shell ui output input',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
