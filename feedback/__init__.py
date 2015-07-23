@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-__version__ = '0.1'
+__version__ = '0.1-1'
 from getpass import getpass
 from common import _Common
 from render import _Render
