@@ -11,32 +11,32 @@ pip install feedback
 ```python
 # Import and load the handler class
 from feedback import Feedback
-feedback = Feedback()
+fb_no_ts = Feedback()
 
 # Create an instance using a timestamp
-feedback_ts  = Feedback(use_timestamp=True)
+fb_ts    = Feedback(use_timestamp=True)
 
 # Create an instance using a custom timestamp
-feedback_tsc = Feedback(use_timestamp=True, timestamp_format='%Y-%m-%d %H:%M:%S')
+fb_tsc   = Feedback(use_timestamp=True, timestamp_format='%Y-%m-%d %H:%M:%S')
 
 # Displaying single line messages
-fb.set('Set the message, then call the render method').info()
-fb.set('Something good just happended, :-)').success()
-fb.set('Something bad just happended, :-(').error()
-fb.set('Better watch out, something looks fishy').warn()
+fb_no_ts.info('Set the message, then call the render method')
+fb_no_ts.success('Something good just happended, :-)')
+fb_no_ts.error('Something bad just happended, :-(')
+fb_no_ts.warn('Better watch out, something looks fishy')
 
 # Capturing user input.
-fb.set('Ask the user for some data: ').input('key_one')
-fb.set('Ask the user a "y" or "n" question? (y/n): ').input('key_two', yes_no=True)
-fb.set('Ask the user for a password and confirm: ').input('key_three', secure=True, confirm=True)
+fb_no_ts.input('Ask the user for some data: ', key='key_one')
+fb_no_ts.input('Ask the user a "y" or "n" question? (y/n): ', key='key_two', yes_no=True)
+fb_no_ts.input('Ask the user for a password and confirm: ', key='key_three', secure=True, confirm=True)
 
 # Displaying an indented block of text. Pass an array as an argument
 # with one line per entry.
-fb.set([
+fb_no_ts.block([
     'This is a block of indented text, and here is some stuff to look at:',
     'Response 1: {}'.format(feedback.get_response('key_one')),
     'Response 2: {}'.format(feedback.get_response('key_one')),
     'Response 3: {}'.format(feedback.get_response('key_one')),
     'And that\'s the end of this block'
-]).block('ABOUT')
+], 'ABOUT')
 ```
