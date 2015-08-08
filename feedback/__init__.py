@@ -47,7 +47,7 @@ class Feedback(_Common):
         self._set_message(msg)
         self.render.show('WARNING', color=self.color['yellow'])
         
-    def error(self): 
+    def error(self, msg): 
         """
         Display an error message on the screen.
         """
