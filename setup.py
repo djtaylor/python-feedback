@@ -8,17 +8,18 @@ long_desc = open('DESCRIPTION.rst').read()
 
 # Run the setup
 setup(
-    name='feedback',
-    version=version,
-    description='Feedback and user input manager',
-    long_description=long_desc,
-    author='David Taylor',
-    author_email='djtaylor13@gmail.com',
-    url='http://github.com/djtaylor/python-feedback',
-    license='GPLv3',
-    packages=find_packages(),
-    keywords='feedback terminal shell ui output input',
-    classifiers=[
+    name             = 'feedback',
+    version          = version,
+    description      = 'Feedback and user input manager',
+    long_description = long_desc,
+    author           = 'David Taylor',
+    author_email     = 'djtaylor13@gmail.com',
+    url              = 'http://github.com/djtaylor/python-feedback',
+    license          = 'GPLv3',
+    install_requires = ['colorama>=0.2.5', 'termcolor>=1.1.0']
+    packages         = find_packages(),
+    keywords         = 'feedback terminal shell ui output input',
+    classifiers      = [
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
         'License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)',

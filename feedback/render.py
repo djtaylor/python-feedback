@@ -1,18 +1,24 @@
-import sys
 import string
 from time import time
 from copy import copy
-from common import _Common
+from sys import stdout
 from getpass import getpass
 from datetime import datetime
+from termcolor import colored
+from colorama import init as colorama_init
 
-class _Render(_Common):
+class _Render(object):
     """
     Private class used to handle rendering any messages set by the
     public feedback class.
     """
     def __init__(self, **kwargs):
-        super(_Render, self).__init__()
+        
+        # Initialize colorama
+        colorama_init()
+        
+        # Default tag width
+        self.width     = 9
         
         # Message / input response / kwargs
         self.msg       = None
@@ -28,21 +34,17 @@ class _Render(_Common):
         """
         return datetime.fromtimestamp(time()).strftime(self.kwargs.get('timestamp_format', '%H:%M:%S'))
     
-    def _get_tag(self, tag, color=''):
+    def _get_tag(self, tag, color='white'):
         """
         Generate a tag string.
         """
-        
-        # Tag centered / tag colored / tag plain
-        tag_center = string.center(tag, self.width)
-        tag_color  = '\x1b[1;{}m{}\x1b[0m'.format(color, tag_center)
-        tag_plain  = '{}'.format(tag_center)
-        
-        # Timestamp
+
+        # Timestamp / tag
         timestamp  = '' if not self.timestamp else ' {} |'.format(self._get_timestamp())
+        tag        = colored(string.center(tag, self.width), color)
         
         # Return the tag string
-        return '[{}{}]'.format(timestamp, tag_color if (self.colors and color) else tag_plain)
+        return '[{}{}]'.format(timestamp, tag)
     
     def get_response(self, key, default=None):
         """
@@ -88,7 +90,7 @@ class _Render(_Common):
                     def _get_and_confirm_input():
                         val_one, val_two = prompt()
                         if not val_one == val_two:
-                            sys.stdout.write('{}: Values do not match, please try again...\n'.format(self._get_tag('ERROR', self.color['red'])))
+                            stdout.write('{}: Values do not match, please try again...\n'.format(self._get_tag('ERROR', 'red')))
                             return _get_and_confirm_input()
                         return val_one
                     self.response[kwargs.get('input_key')] = _get_and_confirm_input()
@@ -106,7 +108,7 @@ class _Render(_Common):
                         _response = raw_input(msg_input)
                         _response = _response.lower()
                         if _response != 'y' and _response != 'n': 
-                            sys.stdout.write('{}: Response must be "y" or "n"...\n'.format(self._get_tag('ERROR', self.color['red'])))
+                            stdout.write('{}: Response must be "y" or "n"...\n'.format(self._get_tag('ERROR', 'red')))
                             return _get_yn_response()
                         return True if _response == 'y' else False
                     self.response[kwargs.get('input_key')] = _get_yn_response()
@@ -115,4 +117,4 @@ class _Render(_Common):
             
         # Write straight to stdout
         else:
-            sys.stdout.write(message)
+            stdout.write(message)
