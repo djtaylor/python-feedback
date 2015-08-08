@@ -16,7 +16,7 @@ setup(
     author_email     = 'djtaylor13@gmail.com',
     url              = 'http://github.com/djtaylor/python-feedback',
     license          = 'GPLv3',
-    install_requires = ['colorama>=0.2.5', 'termcolor>=1.1.0']
+    install_requires = ['colorama>=0.2.5', 'termcolor>=1.1.0'],
     packages         = find_packages(),
     keywords         = 'feedback terminal shell ui output input',
     classifiers      = [
