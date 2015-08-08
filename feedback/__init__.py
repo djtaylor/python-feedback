@@ -11,22 +11,40 @@ class Feedback(_Common):
         # Render manager / handler
         self.render   = _Render(**kwargs)
     
+    def _set_message(self, msg):
+        """
+        Set and store the message.
+        """
+        if isinstance(msg, str):
+            _msg = msg
+        if isinstance(msg, list):
+            indent   = ' ' * 3
+            _msg = '\n\n'
+            for line in msg:
+                _msg += '{}{}\n'.format(indent, line)
+            _msg += '\n'
+        
+        # Pass the message to the rendering handler
+        self.render.set_message(_msg)
+    
     def get_response(self, key, default=None):
         """
         Return then clear the response variable.
         """
         return self.render.get_response(key, default)
         
-    def success(self): 
+    def success(self, msg): 
         """
         Display a success message on the screen.
         """
+        self._set_message(msg)
         self.render.show('SUCCESS', color=self.color['green'])
         
-    def warn(self): 
+    def warn(self, msg): 
         """
         Display a warning message on the screen.
         """
+        self._set_message(msg)
         self.render.show('WARNING', color=self.color['yellow'])
         
     def error(self): 
@@ -35,45 +53,23 @@ class Feedback(_Common):
         """
         self.render.show('ERROR', color=self.color['red'])
 
-    def block(self, label='INFO'):
+    def block(self, msg, label='INFO'):
         """
         Display a block of indented text.
         """
+        self._set_message(msg)
         self.render.show(label, newline=False)
 
-    def input(self, key, secure=False, confirm=False, yes_no=False):
+    def input(self, msg, key, secure=False, confirm=False, yes_no=False):
         """
         Display an input prompt on the screen.
         """
+        self._set_message(msg)
         self.render.show('INPUT', input_key=key, input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
 
-    def info(self): 
+    def info(self, msg): 
         """
         Display an informational message on the screen.
         """
+        self._set_message(msg)
         self.render.show('INFO')
-
-    def set(self, msg=None, **kwargs):
-        """
-        Set the message to display with the chosen rendering method.
-        
-        :param  msg: The message to display
-        :type   msg: str
-        :rtype: self
-        """
-        if isinstance(msg, str):
-            _msg = msg
-        elif isinstance(msg, list):
-            indent   = ' ' * 3
-            _msg = '\n\n'
-            for line in msg:
-                _msg += '{}{}\n'.format(indent, line)
-            _msg += '\n'
-        else:
-            return self
-        
-        # Pass the message to the rendering handler
-        self.render.set_message(_msg)
-        
-        # Return this object
-        return self
