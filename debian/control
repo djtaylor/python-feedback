@@ -1,0 +1,36 @@
+Source: python-feedback
+Section: python
+Priority: optional
+Maintainer: David Taylor <djtaylor13@gmail.com>
+Build-Depends: debhelper (>= 9),
+               python (>= 2.7),
+               python3 (>= 3.3),
+               python-colorama (>= 0.2.5),
+               python3-colorama (>= 0.2.5),
+               python-termcolor (>= 1.1.0),
+               python3-termcolor (>= 1.1.0),
+               python-setuptools (>= 3.3),
+               python3-setuptools (>= 3.3),
+               python-wheel (>= 0.24.0),
+               python3-wheel (>= 0.24.0),
+Standards-Version: 3.9.5
+Homepage: https://github.com/djtaylor/python-feedback
+Vcs-Git: git://github.com/djtaylor/python-feedback.git
+Vcs-Browser: https://github.com/djtaylor/python-feedback
+X-Python-Version: >= 2.7
+X-Python3-Version: >= 3.3
+
+Package: python-feedback
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: Feedback and user input manager.
+
+Package: python3-feedback
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Feedback and user input manager.
+
+Package: python-feedback-whl
+Architecture: all
+Depends: ${misc:Depends}, ${python3:Depends}
+Description: Feedback and user input manager.

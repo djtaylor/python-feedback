@@ -1,9 +1,15 @@
 #!/usr/bin/python
-import feedback
+from sys import path
 from setuptools import setup, find_packages
 
+# Add the local path
+path.append('usr/local/lib/python2.7/dist-packages')
+
+# Import the module version
+from feedback import __version__
+
 # Module version / long description
-version = feedback.__version__
+version   = __version__
 long_desc = open('DESCRIPTION.rst').read()
 
 # Run the setup

@@ -3,8 +3,8 @@ test.py[cod]
 .pypirc
 build
 dist
-feedback.egg-info
-build.sh
+*.egg-info
+__pycache__
 
 # Eclipse
 .project

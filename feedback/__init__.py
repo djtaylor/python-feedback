@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__version__ = '0.1-2'
-from render import _Render
+__version__ = '0.1-3'
+from .render import _Render
 
 class Feedback(object):
     def __init__(self, **kwargs):
