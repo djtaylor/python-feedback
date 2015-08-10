@@ -1,23 +1,15 @@
 #!/usr/bin/python
-from sys import path
 from setuptools import setup, find_packages
 
-# Add the local path
-path.append('usr/local/lib/python2.7/dist-packages')
-
 # Import the module version
-from feedback import __version__
-
-# Module version / long description
-version   = __version__
-long_desc = open('DESCRIPTION.rst').read()
+from .feedback import __version__
 
 # Run the setup
 setup(
     name             = 'feedback',
-    version          = version,
+    version          = __version__,
     description      = 'Feedback and user input manager',
-    long_description = long_desc,
+    long_description = open('DESCRIPTION.rst').read(),
     author           = 'David Taylor',
     author_email     = 'djtaylor13@gmail.com',
     url              = 'http://github.com/djtaylor/python-feedback',
