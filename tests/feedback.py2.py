@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 from sys import path
 path.append('{PYTHON_PATH}')
 from feedback import Feedback
@@ -20,9 +20,9 @@ feedback.input('Ask the user for a password and confirm: ', key='key_three', sec
 # Test block display and response retrieval
 feedback.block([
     'This is a block of indented text, and here is some stuff to look at:',
-    'Response 1: {}'.format(feedback.get_response('key_one')),
-    'Response 2: {}'.format(feedback.get_response('key_one')),
-    'Response 3: {}'.format(feedback.get_response('key_one')),
+    'Response 1: {0}'.format(feedback.get_response('key_one')),
+    'Response 2: {0}'.format(feedback.get_response('key_one')),
+    'Response 3: {0}'.format(feedback.get_response('key_one')),
     'And that\'s the end of this block'
 ], 'ABOUT')
 
