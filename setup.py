@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 # Import the module version
-from .feedback import __version__
+from feedback import __version__
 
 # Run the setup
 setup(

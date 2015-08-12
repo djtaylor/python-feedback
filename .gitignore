@@ -1,5 +1,4 @@
 *.py[cod]
-test.py[cod]
 .pypirc
 build
 dist

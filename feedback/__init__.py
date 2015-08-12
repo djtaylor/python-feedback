@@ -18,7 +18,7 @@ class Feedback(object):
             indent   = ' ' * 3
             _msg = '\n\n'
             for line in msg:
-                _msg += '{}{}\n'.format(indent, line)
+                _msg += '{0}{1}\n'.format(indent, line)
             _msg += '\n'
         
         # Pass the message to the rendering handler
@@ -48,6 +48,7 @@ class Feedback(object):
         """
         Display an error message on the screen.
         """
+        self._set_message(msg)
         self.render.show('ERROR', color='red')
 
     def block(self, msg, label='INFO'):

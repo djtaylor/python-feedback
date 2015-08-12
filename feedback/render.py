@@ -7,6 +7,12 @@ from datetime import datetime
 from termcolor import colored
 from colorama import init as colorama_init
 
+# Workaround for Python2 compatability
+try: 
+    input = raw_input
+except NameError: 
+    pass
+
 class _Render(object):
     """
     Private class used to handle rendering any messages set by the
@@ -40,11 +46,11 @@ class _Render(object):
         """
 
         # Timestamp / tag
-        timestamp  = '' if not self.timestamp else ' {} |'.format(self._get_timestamp())
-        tag        = colored(string.center(tag, self.width), color)
+        timestamp  = '' if not self.timestamp else ' {0} |'.format(self._get_timestamp())
+        tag        = colored(tag.center(self.width))
         
         # Return the tag string
-        return '[{}{}]'.format(timestamp, tag)
+        return '[{0}{1}]'.format(timestamp, tag)
     
     def get_response(self, key, default=None):
         """
@@ -70,18 +76,18 @@ class _Render(object):
         
         # Tag / message
         tag       = self._get_tag(tag, kwargs.get('color', ''))
-        message   = '{}{}: {}{}'.format(line_ref, tag, self.msg, line_new)
+        message   = '{0}{1}: {2}{3}'.format(line_ref, tag, self.msg, line_new)
         
         # If capturing input
         if kwargs.get('input_get'):
-            msg_input = '{}: {}'.format(tag, self.msg)
+            msg_input = '{0}: {1}'.format(tag, self.msg)
             
             # If using a secure prompt
             if kwargs.get('input_secure'):
                 
                 # Confirm the input
                 if kwargs.get('input_confirm'):
-                    msg_confirm = '{}: Please re-enter the value: '.format(self._get_tag('CONFIRM'))
+                    msg_confirm = '{0}: Please re-enter the value: '.format(self._get_tag('CONFIRM'))
                     
                     # Input / confirmation prompts
                     prompt = lambda: (getpass(msg_input), getpass(msg_confirm))
@@ -90,7 +96,7 @@ class _Render(object):
                     def _get_and_confirm_input():
                         val_one, val_two = prompt()
                         if not val_one == val_two:
-                            stdout.write('{}: Values do not match, please try again...\n'.format(self._get_tag('ERROR', 'red')))
+                            stdout.write('{0}: Values do not match, please try again...\n'.format(self._get_tag('ERROR', 'red')))
                             return _get_and_confirm_input()
                         return val_one
                     self.response[kwargs.get('input_key')] = _get_and_confirm_input()
@@ -105,15 +111,14 @@ class _Render(object):
                 # If parsing a yes/no answer
                 if kwargs.get('input_yn', False):
                     def _get_yn_response():
-                        _response = raw_input(msg_input)
-                        _response = _response.lower()
+                        _response = input(msg_input).lower()
                         if _response != 'y' and _response != 'n': 
-                            stdout.write('{}: Response must be "y" or "n"...\n'.format(self._get_tag('ERROR', 'red')))
+                            stdout.write('{0}: Response must be "y" or "n"...\n'.format(self._get_tag('ERROR', 'red')))
                             return _get_yn_response()
                         return True if _response == 'y' else False
                     self.response[kwargs.get('input_key')] = _get_yn_response()
                 else:
-                    self.response[kwargs.get('input_key')] = raw_input(msg_input)
+                    self.response[kwargs.get('input_key')] = input(msg_input)
             
         # Write straight to stdout
         else:
