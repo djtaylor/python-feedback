@@ -78,7 +78,7 @@ do_py2() {
     echo -e "Running Python2 tests..."
     echo -e "---------------------------------------------------------------"
     do_setup "tests/feedback.py2.py"
-    do_tests "/usr/bin/python"
+    do_tests "$(which python)"
     do_cleanup
     echo -e "---------------------------------------------------------------"
     echo -e "Python2 tests complete!"
@@ -90,7 +90,7 @@ do_py3() {
     echo -e "Running Python3 tests..."
     echo -e "---------------------------------------------------------------"
     do_setup "tests/feedback.py3.py"
-    do_tests "/usr/bin/python3"
+    do_tests "$(which python3)"
     do_cleanup
     echo -e "---------------------------------------------------------------"
     echo -e "Python3 tests complete!"
