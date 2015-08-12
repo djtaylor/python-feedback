@@ -47,7 +47,7 @@ class _Render(object):
 
         # Timestamp / tag
         timestamp  = '' if not self.timestamp else ' {0} |'.format(self._get_timestamp())
-        tag        = colored(tag.center(self.width))
+        tag        = colored(tag.center(self.width), color)
         
         # Return the tag string
         return '[{0}{1}]'.format(timestamp, tag)
