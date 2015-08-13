@@ -12,14 +12,14 @@ class Feedback(object):
         """
         Set and store the message.
         """
-        if isinstance(msg, str):
-            _msg = msg
         if isinstance(msg, list):
             indent   = ' ' * 3
             _msg = '\n\n'
             for line in msg:
                 _msg += '{0}{1}\n'.format(indent, line)
             _msg += '\n'
+        else:
+            _msg = msg
         
         # Pass the message to the rendering handler
         self.render.set_message(_msg)
