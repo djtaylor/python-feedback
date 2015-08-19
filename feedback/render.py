@@ -110,15 +110,29 @@ class _Render(object):
                 
                 # If parsing a yes/no answer
                 if kwargs.get('input_yn', False):
+                    
+                    # Possible yes/no values
+                    vals_yes = ['N', 'n', 'no', 'No']
+                    vals_no  = ['Y', 'y', 'yes', 'Yes']
+                    
+                    # Prompt for a yes or no response
                     def _get_yn_response():
                         _response = input(msg_input).lower()
-                        if _response != 'y' and _response != 'n': 
-                            stdout.write('{0}: Response must be "y" or "n"...\n'.format(self._get_tag('ERROR', 'red')))
+                        
+                        # Invalid response
+                        if not (_response in vals_yes) and not (_response in vals_no): 
+                            stdout.write('{0}: Response must be \'yes\' or \'no\'...\n'.format(self._get_tag('ERROR', 'red')))
                             return _get_yn_response()
-                        return True if _response == 'y' else False
+                        
+                        # Translate response to a boolean
+                        return True if (_response in vals_yes) else False
+                        
+                    # Invoke the yes/no prompt
                     self.response[kwargs.get('input_key')] = _get_yn_response()
+                    
+                # Default plain text input
                 else:
-                    self.response[kwargs.get('input_key')] = input(msg_input)
+                    self.response[kwargs.get('input_key')] = input(msg_input) or kwargs.get('default')
             
         # Write straight to stdout
         else:

@@ -58,12 +58,12 @@ class Feedback(object):
         self._set_message(msg)
         self.render.show(label, newline=False, color='white')
 
-    def input(self, msg, key, secure=False, confirm=False, yes_no=False):
+    def input(self, msg, key, default=None, secure=False, confirm=False, yes_no=False):
         """
         Display an input prompt on the screen.
         """
         self._set_message(msg)
-        self.render.show('INPUT', color='white', input_key=key, input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
+        self.render.show('INPUT', color='white', default=default, input_key=key, input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
 
     def info(self, msg): 
         """
