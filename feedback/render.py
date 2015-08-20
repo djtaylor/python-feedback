@@ -137,3 +137,6 @@ class _Render(object):
         # Write straight to stdout
         else:
             stdout.write(message)
+            
+        # Return the message after everything is done
+        return self.msg

@@ -7,10 +7,10 @@ from feedback import Feedback
 feedback = Feedback()
 
 # Test basic messages
-feedback.info('Testing information message')
-feedback.success('Testing success message')
-feedback.warn('Testing warning message')
-feedback.error('Testing error message')
+i_back = feedback.info('Testing information message')
+s_back = feedback.success('Testing success message')
+w_back = feedback.warn('Testing warning message')
+e_back = feedback.error('Testing error message')
 
 # Test user input
 feedback.input('Ask the user for some data: ', key='key_one')
@@ -25,6 +25,10 @@ feedback.block([
     'Response 2: {0}'.format(feedback.get_response('key_two')),
     'Response 3: {0}'.format(feedback.get_response('key_three')),
     'Response 4: {0}'.format(feedback.get_response('key_four')),
+    'Info Returned: {0}'.format(i_back),
+    'Success Returned: {0}'.format(s_back),
+    'Warn Returned: {0}'.format(w_back),
+    'Error Returned: {0}'.format(e_back),
     'And that\'s the end of this block'
 ], 'ABOUT')
 

@@ -35,39 +35,47 @@ class Feedback(object):
         Display a success message on the screen.
         """
         self._set_message(msg)
-        self.render.show('SUCCESS', color='green')
+        return self.render.show('SUCCESS', color='green')
         
     def warn(self, msg): 
         """
         Display a warning message on the screen.
         """
         self._set_message(msg)
-        self.render.show('WARNING', color='yellow')
+        return self.render.show('WARNING', color='yellow')
         
     def error(self, msg): 
         """
         Display an error message on the screen.
         """
         self._set_message(msg)
-        self.render.show('ERROR', color='red')
+        return self.render.show('ERROR', color='red')
 
     def block(self, msg, label='INFO'):
         """
         Display a block of indented text.
         """
         self._set_message(msg)
-        self.render.show(label, newline=False, color='white')
+        return self.render.show(label, newline=False, color='white')
 
     def input(self, msg, key, default=None, secure=False, confirm=False, yes_no=False):
         """
         Display an input prompt on the screen.
         """
         self._set_message(msg)
-        self.render.show('INPUT', color='white', default=default, input_key=key, input_get=True, input_secure=secure, input_confirm=confirm, input_yn=yes_no)
+        return self.render.show('INPUT', 
+            color         = 'white', 
+            default       = default, 
+            input_key     = key, 
+            input_get     = True, 
+            input_secure  = secure, 
+            input_confirm = confirm, 
+            input_yn      = yes_no
+        )
 
     def info(self, msg): 
         """
         Display an informational message on the screen.
         """
         self._set_message(msg)
-        self.render.show('INFO', color='white')
+        return self.render.show('INFO', color='white')
