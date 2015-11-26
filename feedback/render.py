@@ -5,6 +5,7 @@ from sys import stdout
 from getpass import getpass
 from datetime import datetime
 from termcolor import colored
+from os.path import expanduser
 from colorama import init as colorama_init
 
 # Workaround for Python2 compatability

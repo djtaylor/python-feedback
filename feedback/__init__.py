@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 __version__ = '0.1-7'
+import logging
 from .render import _Render
 
 class Feedback(object):
@@ -7,6 +8,63 @@ class Feedback(object):
         
         # Render manager / handler
         self.render   = _Render(**kwargs)
+    
+        # Logging attributes
+        self._logger  = self._set_logger()
+    
+    def _log(self, msg, lvl):
+        """
+        Log a message
+        """
+        if self._logger:
+            
+            # Make sure the log level is valid
+            if not hasattr(self._logger, lvl):
+                raise Exception('Invalid log level: {0}'.format(lvl))
+            _log = getattr(self._logger, lvl)
+            
+            # Log the message
+            _log(msg)
+    
+    def _set_logger(self):
+        """
+        Option for setting up a logger.
+        """
+        log_attrs = self.kwargs.get('log', None)
+        
+        # Look for attributes
+        if not log_attrs:
+            return None
+        
+        # Must be in dictionary format
+        if not isinstance(log_attrs, dict):
+            raise Exception('Attribute <log> must be a dictionary')
+    
+        # Logger name / file / format / date format
+        log_name     = log_attrs.get('name', None)
+        log_file     = log_attrs.get('file', None)
+        log_fmt      = log_attrs.get('format', '%(asctime)s %(name)s - %(levelname)s: %(message)s')
+        log_date_fmt = log_attrs.get('date_format', '%d-%m-%Y %I:%M:%S')
+        log_level    = log_attrs.get('level', 'INFO')
+
+        # Log name and file required
+        if not log_name or not log_file:
+            raise Exception('Log <name> and <file> attributes required')
+
+        # Set the logger module name
+        logger = logging.getLogger(log_name)
+        logger.setLevel(getattr(logging, log_level))
+        
+        # Log file handler
+        lfh = logging.handlers.RotatingFileHandler(log_file, mode='a', maxBytes=10*1024*1024, backupCount=5)
+        logger.addHandler(lfh)
+        
+        # Set the format
+        lfm = logging.Formatter(fmt=log_fmt, datefmt=log_date_fmt)
+        lfh.setFormatter(lfm)
+
+        # Return the logger
+        return logger
     
     def _set_message(self, msg):
         """
@@ -34,6 +92,7 @@ class Feedback(object):
         """
         Display a success message on the screen.
         """
+        self._log(msg, 'info')
         self._set_message(msg)
         return self.render.show('SUCCESS', color='green')
         
@@ -41,6 +100,7 @@ class Feedback(object):
         """
         Display a warning message on the screen.
         """
+        self._log(msg, 'warning')
         self._set_message(msg)
         return self.render.show('WARNING', color='yellow')
         
@@ -48,6 +108,7 @@ class Feedback(object):
         """
         Display an error message on the screen.
         """
+        self._log(msg, 'error')
         self._set_message(msg)
         return self.render.show('ERROR', color='red')
 
@@ -62,6 +123,7 @@ class Feedback(object):
         """
         Display an input prompt on the screen.
         """
+        self._log(msg, 'info')
         self._set_message(msg)
         return self.render.show('INPUT', 
             color         = 'white', 
@@ -77,5 +139,6 @@ class Feedback(object):
         """
         Display an informational message on the screen.
         """
+        self._log(msg, 'info')
         self._set_message(msg)
         return self.render.show('INFO', color='white')
